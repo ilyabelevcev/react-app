@@ -2,12 +2,16 @@ import React, { useMemo, useState, useEffect } from 'react';
 import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
+
+import MyModal from './components/UI/modal/MyModal';
+import MyButton from './components/UI/button/MyButton';
 import axios from 'axios';
 import './styles/App.css'
 
 const App = () => {
     const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', query: ''})
+    const [modal, setModal] = useState(false)
 
     useEffect(() => {
         fetchPosts()
@@ -37,6 +41,7 @@ const App = () => {
 
     const createPost = (newPost) => {
         setPosts([newPost, ...posts])
+        setModal(false)
     }
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
@@ -44,8 +49,10 @@ const App = () => {
     
     return (
         <div className="app">
-            <PostForm create={createPost}/>
-            <hr style={{margin: "15px 0"}}/>
+            <MyModal visible={modal} setVisible={setModal}>
+                <PostForm create={createPost}/>
+            </MyModal>
+            <MyButton onClick={() => setModal(true)}>Add post</MyButton>
             <PostFilter 
                 filter={filter} 
                 setFilter={setFilter}
