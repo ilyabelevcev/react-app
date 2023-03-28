@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './MyModal.module.css'
+import styles from './MyModal.module.sass'
 
 const MyModal = ({children, visible, setVisible}) => {
     const rootClasses = [styles.myModal]
@@ -9,8 +9,8 @@ const MyModal = ({children, visible, setVisible}) => {
     }
 
     return (
-        <div onClick={() => setVisible(false)} className={rootClasses.join(' ')}>
-            <div onClick={(e) => e.stopPropagation()} className={styles.myModalContent}>
+        <div className={rootClasses.join(' ')} onClick={() => setVisible(false)} >
+            <div className={styles.myModalContent} onClick={(e) => e.stopPropagation()}>
                 {children}
             </div>
         </div>
